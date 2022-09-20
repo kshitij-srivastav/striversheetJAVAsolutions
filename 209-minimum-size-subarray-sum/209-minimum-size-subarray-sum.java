@@ -1,26 +1,18 @@
 class Solution {
-    
-    //  Time Complexity = O(N)
-    //  Space Complexity = O(1)
-    
     public int minSubArrayLen(int target, int[] nums) {
-        //  Edge Case
-        if (nums == null || nums.length == 0)
-		    return 0;
-        
-		//  Two-Pointers, sum and min variables  
-	    int start = 0, end = 0, sum = 0, min = Integer.MAX_VALUE;
-		
-        //   
-    	while (end < nums.length) {
-	        sum += nums[end++];
-		    
-		    while (sum >= target) {
-                min = Math.min(min, end - start);
-		        sum -= nums[start++];
-		    }
+        if(nums==null || nums.length==0)
+            return 0;
+        int l =0,r=0,min=Integer.MAX_VALUE;int sum=0;
+        while(r<nums.length){
+            sum+=nums[r++];
+            if(sum>=target){
+                while(sum>=target)
+                {
+                    sum-=nums[l++];
+                }
+                min=Math.min(min,r-l+1);
+            }
         }
-		 
-		return min == Integer.MAX_VALUE ? 0 : min;
+        return min==Integer.MAX_VALUE? 0:min;
     }
 }
